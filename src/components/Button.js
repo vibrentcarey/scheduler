@@ -1,15 +1,16 @@
 import React from "react";
+let classNames = require('classnames')
 
 import "components/Button.scss";
 
 export default function Button(props) {
-   let buttonClass = "button"
+   //Use classNames to dynamically set the button classes
+   let buttonClass = classNames({
+      button: true,
+      'button--confirm': props.confirm,
+      'button--danger': props.danger
+   })
 
-   if (props.confirm) {
-      buttonClass += " button--confirm"
-   } else if (props.danger) {
-      buttonClass += " button--danger"
-   }
    return (
       <button
          className={buttonClass}
