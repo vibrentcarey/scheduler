@@ -4,6 +4,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 
 export default function Application(props) {
+  const [day, setDay] = useState('Monday')
   const days = [
     {
       id: 1,
@@ -32,7 +33,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={days} day="Monday" setDay={(day) => console.log(day)} />
+          <DayList days={days} day={day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
