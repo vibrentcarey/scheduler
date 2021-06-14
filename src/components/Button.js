@@ -1,7 +1,7 @@
 import React from "react";
-let classNames = require('classnames')
-
 import "components/Button.scss";
+
+let classNames = require('classnames')
 
 export default function Button(props) {
    //Use classNames to dynamically set the button classes
