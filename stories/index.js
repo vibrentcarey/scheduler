@@ -87,19 +87,19 @@ storiesOf('InterviewerList', module)
       avatar={interviewer.avatar}
     />
   ))
-  .add('Selected', () => {
+  .add('Selected', () => (
     <InterviewListItem
       id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
       selected
     />
-  })
-  .add('Clickable', () => {
+  ))
+  .add('Clickable', () => (
     <InterviewListItem
       id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
       setInterviewer={action('setInterviewer')}
     />
-  })
+  ))

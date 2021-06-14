@@ -1,3 +1,5 @@
+import React from 'react';
+
 const InterviewListItem = (props) => {
   return (
     <li className="interviewers__item">
