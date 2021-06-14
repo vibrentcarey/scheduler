@@ -1,6 +1,6 @@
 import React from "react";
 
-import { storiesOf } from "@storybook/react";
+import { addParameters, storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import "index.scss";
@@ -8,6 +8,7 @@ import "index.scss";
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
 import DayList from "components/DayList"
+import InterviewListItem from "components/InterviewListItem";
 
 //Button Stories
 storiesOf("Button", module)
@@ -67,3 +68,38 @@ storiesOf('DayList', module)
   .add("Tuesday", () => (
     <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
   ));
+
+//InterviewListItem Stories
+const interviewer = {
+  id: 1,
+  name: "Sylvia Palmer",
+  avatar: "https://i.imgur.com/LpaY82x.png"
+};
+
+storiesOf('InterviewerList', module)
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+  })
+  .add("Unselected", () => (
+    <InterviewListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+    />
+  ))
+  .add('Selected', () => {
+    <InterviewListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      selected
+    />
+  })
+  .add('Clickable', () => {
+    <InterviewListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      setInterviewer={action('setInterviewer')}
+    />
+  })
