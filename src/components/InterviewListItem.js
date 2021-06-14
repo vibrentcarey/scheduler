@@ -4,12 +4,13 @@ import 'components/InterviewListItem.scss'
 
 const InterviewListItem = (props) => {
   return (
-    <li className="interviewers__item">
+    <li className="interviewers__item" onClick={props.setInterviewer}>
       <img
         className="interviewers__item-image"
-        src="../../public/images/joseph.png"
-        alt="Joseph Goncalez"
+        src={props.avatar}
+        alt={props.name}
       />
+      {props.selected && props.name}
     </li>
   )
 }
