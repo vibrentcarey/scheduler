@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
 
+const days = [
+  {
+    id: 1,
+    name: "Monday",
+    spots: 2,
+  },
+  {
+    id: 2,
+    name: "Tuesday",
+    spots: 5,
+  },
+  {
+    id: 3,
+    name: "Wednesday",
+    spots: 0,
+  },
+];
+
 export default function Application(props) {
   const [day, setDay] = useState('Monday')
-  const days = [
-    {
-      id: 1,
-      name: "Monday",
-      spots: 2,
-    },
-    {
-      id: 2,
-      name: "Tuesday",
-      spots: 5,
-    },
-    {
-      id: 3,
-      name: "Wednesday",
-      spots: 0,
-    },
-  ];
 
   return (
     <main className="layout">

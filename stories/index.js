@@ -10,6 +10,9 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList"
 import InterviewListItem from "components/InterviewListItem";
 
+//Avatar Image
+import avatarImage from '../public/images/joseph.png'
+
 //Button Stories
 storiesOf("Button", module)
   .addParameters({
@@ -72,8 +75,8 @@ storiesOf('DayList', module)
 //InterviewListItem Stories
 const interviewer = {
   id: 1,
-  name: "Sylvia Palmer",
-  avatar: "https://i.imgur.com/LpaY82x.png"
+  name: "Joseph Goncalez",
+  avatar: avatarImage
 };
 
 storiesOf('InterviewerList', module)
