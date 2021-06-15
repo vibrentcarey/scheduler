@@ -1,15 +1,17 @@
-import { props } from 'bluebird'
 import React from 'react'
 import Empty from './Empty'
 import Header from './Header'
 import Show from './Show'
 import './styles.scss'
 
-const Appointment = ({ time, interview }) => {
+const Appointment = ({ id, time, interview }) => {
   return (
     <article className="appointment">
       <Header time={time} />
-      {interview ? <Show /> : <Empty />}
+      {interview ? <Show
+        student={interview.student}
+        interviewer={interview.interviewer.name}
+      /> : <Empty />}
     </article>
   )
 }
