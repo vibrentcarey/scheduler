@@ -10,10 +10,9 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList"
 import InterviewListItem from "components/InterviewListItem";
 
-//Avatar Image
-import avatarImage from '../public/images/joseph.png'
 import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment";
+import Header from "components/Appointment/Header";
 
 //Button Stories
 storiesOf("Button", module)
@@ -77,11 +76,11 @@ storiesOf('DayList', module)
 //InterviewListItem Stories
 const interviewer = {
   id: 1,
-  name: "Joseph Goncalez",
-  avatar: avatarImage
+  name: "Sylvia Palmer",
+  avatar: "https://i.imgur.com/LpaY82x.png"
 };
 
-storiesOf('InterviewerList', module)
+storiesOf('InterviewerListItem', module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
   })
@@ -133,7 +132,7 @@ storiesOf("InterviewList", module)
   .add('Preselected', () => (
     <InterviewerList
       interviewers={interviewers}
-      interviewer={3}
+      interviewer={interviewers[3].name}
       setInterviewer={action("setInterviewer")}
     />
   ))
@@ -145,3 +144,4 @@ storiesOf('Appointment', module)
   })
   .add("Appointment", () => <Appointment />)
   .add("Appointment with time", () => <Appointment time='12pm' />)
+  .add('Header', () => <Header time='12pm' />)
