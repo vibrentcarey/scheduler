@@ -13,6 +13,7 @@ import InterviewListItem from "components/InterviewListItem";
 //Avatar Image
 import avatarImage from '../public/images/joseph.png'
 import InterviewerList from "components/InterviewerList";
+import Appointment from "components/Appointment";
 
 //Button Stories
 storiesOf("Button", module)
@@ -136,3 +137,11 @@ storiesOf("InterviewList", module)
       setInterviewer={action("setInterviewer")}
     />
   ))
+
+//Appointment Stories
+storiesOf('Appointment', module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with time", () => <Appointment time='12pm' />)
