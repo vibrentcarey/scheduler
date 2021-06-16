@@ -8,7 +8,7 @@ const days = [
   {
     id: 1,
     name: "Monday",
-    spots: 2,
+    spots: 5,
   },
   {
     id: 2,
@@ -18,7 +18,17 @@ const days = [
   {
     id: 3,
     name: "Wednesday",
-    spots: 0,
+    spots: 5,
+  },
+  {
+    id: 4,
+    name: "Thursday",
+    spots: 5,
+  },
+  {
+    id: 5,
+    name: "Friday",
+    spots: 5,
   },
 ];
 
@@ -43,7 +53,7 @@ const appointments = [
     id: 3,
     time: "2pm",
     interview: {
-      student: "Jahna Leclarey",
+      student: "Ava Leclarey",
       interviewer: {
         id: 1,
         name: "Tori Malcolm",
@@ -55,7 +65,7 @@ const appointments = [
     id: 4,
     time: "3pm",
     interview: {
-      student: "Brent Leclarey",
+      student: "Bre Leclarey",
       interviewer: {
         id: 1,
         name: "Mildred Nazir",
