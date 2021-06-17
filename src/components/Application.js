@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
@@ -77,14 +77,25 @@ const appointments = [
 ];
 
 export default function Application() {
-  const [day, setDay] = useState('Monday')
+  const [state, setState] = useState({
+    day: 'Monday',
+    days,
+    appointments: {}
+  })
+
+  const setDay = day => setState({ ...state, day })
+
+  useEffect(() => {
+    setState(prev => ({ ...prev, days }))
+  }, [state])
+
   const schedule = appointments.map(appointment => {
     return (
       <Appointment
-      key={appointment.id}
-      id={appointment.id}
-      time={appointment.time}
-      interview={appointment.interview}
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={appointment.interview}
       />
     )
   })
@@ -98,7 +109,7 @@ export default function Application() {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={days} day={day} setDay={setDay} />
+          <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -108,7 +119,7 @@ export default function Application() {
       </section>
       <section className="schedule">
         {schedule}
-        <Appointment id='last' time='5pm'/>
+        <Appointment id='last' time='5pm' />
       </section>
     </main>
   );
