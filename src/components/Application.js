@@ -6,6 +6,7 @@ import Appointment from "./Appointment";
 import { getAppointmentsForDay } from "helpers/selectors";
 
 import { days, appointments } from "../data/data";
+import useVisualMode from "hooks/useVisualMode";
 
 export default function Application() {
   const [state, setState] = useState({
@@ -14,13 +15,14 @@ export default function Application() {
     appointments: {}
   })
 
+
   const setDay = day => setState({ ...state, day })
 
   useEffect(() => {
     setState(prev => ({ ...prev, days }))
-  }, [state])
+  }, [state.days])
 
-const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const dailyAppointments = getAppointmentsForDay(state, state.day)
 
   const schedule = appointments.map(appointment => {
     return (
