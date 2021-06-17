@@ -18,9 +18,11 @@ export const getAppointmentsForDay = (state, day) => {
 
   //Use the appointment numbers to select the corresponding object
   let appointmentsForDay = []
+  if(appointments){
   for (const appointment of appointments) {
     appointmentsForDay.push(state.appointments[appointment])
   }
+}
 
   return appointmentsForDay
 }
