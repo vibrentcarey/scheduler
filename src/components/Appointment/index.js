@@ -11,9 +11,27 @@ const EMPTY = 'EMPTY'
 const SHOW = 'SHOW'
 const CREATE = 'CREATE'
 
-const Appointment = ({ id, time, interview }) => {
+const Appointment = ({ id, time, interview, bookInterview }) => {
   //Destructure the properties from the function
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY)
+
+  console.log(`Interview ${interview}`)
+  function save(name, interviewer) {
+    const newInterview = {
+      student: name,
+      interviewer
+    };
+
+    bookInterview(id, newInterview)
+    if (newInterview) {
+      transition(SHOW);
+    }
+  }
+
+  const setInterviewer = () => {
+    console.log('set')
+  }
+
   return (
     <article className="appointment">
       <Header time={time} />{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -22,7 +40,7 @@ const Appointment = ({ id, time, interview }) => {
         interviewer={interview.interviewer.name}
       />
       }
-      {mode === CREATE && <Form interviewers={[]} onCancel={back}/>}
+      {mode === CREATE && <Form onSave={save} setInterviewer={setInterviewer} interviewers={[]} onCancel={back} />}
     </article>
   )
 }

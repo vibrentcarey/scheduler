@@ -24,6 +24,27 @@ export default function Application() {
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
 
+  function bookInterview(id, interview) {
+    console.log(interview)
+    //Create a new appointment with the id and interview
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    //Edit the appointments with our new appointment
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({
+      ...state,
+      appointments
+    })
+  }
+
+
   const schedule = appointments.map(appointment => {
     return (
       <Appointment
@@ -31,6 +52,7 @@ export default function Application() {
         id={appointment.id}
         time={appointment.time}
         interview={appointment.interview}
+        bookInterview={bookInterview}
       />
     )
   })
