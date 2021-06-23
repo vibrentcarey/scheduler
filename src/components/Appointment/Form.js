@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Button from 'components/Button'
 import InterviewerList from 'components/InterviewerList'
 
-const Form = ({ name, interviewers, interviewer, onSave, onCancel }) => {
+const Form = ({ selectedInterviewer, name, interviewers, interviewer, onSave, onCancel, setInterviewer }) => {
   const [finalName, setFinalName] = useState(name || '')
   const [finalInterviewer, setFinalInterviewer] = useState(interviewer || null)
 
@@ -16,6 +16,7 @@ const Form = ({ name, interviewers, interviewer, onSave, onCancel }) => {
     reset()
     onCancel()
   }
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -30,7 +31,13 @@ const Form = ({ name, interviewers, interviewer, onSave, onCancel }) => {
           />
         </form>
 
-        <InterviewerList interviewers={interviewers} value={interviewer} onChange={setFinalInterviewer} />
+        <InterviewerList 
+        interviewers={interviewers} 
+        value={interviewer} 
+        setInterviewer={setInterviewer}
+        selectedInterviewer={selectedInterviewer}
+        />
+
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

@@ -1,5 +1,5 @@
 import { useVisualMode } from 'hooks/useVisualMode'
-import React from 'react'
+import React, { useState } from 'react'
 import Empty from './Empty'
 import Header from './Header'
 import Show from './Show'
@@ -11,16 +11,26 @@ const EMPTY = 'EMPTY'
 const SHOW = 'SHOW'
 const CREATE = 'CREATE'
 
+const interviewers = [
+  { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
+  { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
+  { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
+  { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
+  { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
+];
+
 const Appointment = ({ id, time, interview, bookInterview }) => {
   //Destructure the properties from the function
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY)
+  const [selectedInterviewer, setSelectedInterviewer] = useState(null)
 
-  console.log(`Interview ${interview}`)
   function save(name, interviewer) {
     const newInterview = {
       student: name,
       interviewer
     };
+
+    console.log(interviewer)
 
     bookInterview(id, newInterview)
     if (newInterview) {
@@ -28,8 +38,12 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
     }
   }
 
-  const setInterviewer = () => {
-    console.log('set')
+  const setInterviewer = (id) => {
+    const chosenInterviewer = interviewers.filter( interviewer => {
+      return interviewer.id === id
+    })[0].name
+
+    setSelectedInterviewer(chosenInterviewer)
   }
 
   return (
@@ -40,7 +54,13 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
         interviewer={interview.interviewer.name}
       />
       }
-      {mode === CREATE && <Form onSave={save} setInterviewer={setInterviewer} interviewers={[]} onCancel={back} />}
+      {mode === CREATE && <Form
+        onSave={save}
+        setInterviewer={setInterviewer}
+        interviewers={interviewers}
+        onCancel={back} 
+        selectedInterviewer={selectedInterviewer}
+        />}
     </article>
   )
 }
