@@ -4,11 +4,11 @@ import Button from 'components/Button'
 import InterviewerList from 'components/InterviewerList'
 
 const Form = ({ selectedInterviewer, name, interviewers, interviewer, onSave, onCancel, setInterviewer }) => {
-  const [finalName, setFinalName] = useState(name || '')
+  const [studentName, setStudentName] = useState(name || '')
   const [finalInterviewer, setFinalInterviewer] = useState(interviewer || null)
 
   const reset = () => {
-    setFinalName('')
+    setStudentName('')
     setFinalInterviewer(null)
   }
 
@@ -16,7 +16,7 @@ const Form = ({ selectedInterviewer, name, interviewers, interviewer, onSave, on
     reset()
     onCancel()
   }
-
+console.log(studentName)
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -26,8 +26,8 @@ const Form = ({ selectedInterviewer, name, interviewers, interviewer, onSave, on
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={finalName}
-            onChange={(e) => setFinalName(e.target.value)}
+            value={studentName}
+            onChange={(e) => setStudentName(e.target.value)}
           />
         </form>
 
@@ -42,7 +42,7 @@ const Form = ({ selectedInterviewer, name, interviewers, interviewer, onSave, on
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={onSave}>Save</Button>
+          <Button confirm onClick={() => onSave(studentName, selectedInterviewer)}>Save</Button>
         </section>
       </section>
     </main>

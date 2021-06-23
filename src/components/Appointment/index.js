@@ -23,6 +23,7 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
   //Destructure the properties from the function
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY)
   const [selectedInterviewer, setSelectedInterviewer] = useState(null)
+  const [newInterview, setNewInterview] = useState(null)
 
   function save(name, interviewer) {
     const newInterview = {
@@ -30,12 +31,13 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
       interviewer
     };
 
-    console.log(interviewer)
+    setNewInterview(newInterview)
+    transition(SHOW);
 
-    bookInterview(id, newInterview)
-    if (newInterview) {
-      transition(SHOW);
-    }
+    // bookInterview(id, newInterview)
+    // if (newInterview) {
+    //   transition(SHOW);
+    // }
   }
 
   const setInterviewer = (id) => {
@@ -50,8 +52,8 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
     <article className="appointment">
       <Header time={time} />{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show
-        student={interview.student}
-        interviewer={interview.interviewer.name}
+        student={newInterview && newInterview.student}
+        interviewer={newInterview && newInterview.interviewer}
       />
       }
       {mode === CREATE && <Form
