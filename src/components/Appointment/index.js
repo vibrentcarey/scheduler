@@ -27,7 +27,7 @@ const interviewers = [
 
 const Appointment = ({ id, time, interview, bookInterview }) => {
   //Destructure the properties from the function
-  const { mode, transition, back, cancel } = useVisualMode(interview ? SHOW : EMPTY)
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY)
   const [selectedInterviewer, setSelectedInterviewer] = useState(null)
   const [newInterview, setNewInterview] = useState(null)
 
@@ -73,7 +73,7 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
       {mode === DELETE && <Status message='Deleting' />}
       {mode === CONFIRM && <Confirm
         message='Are you sure you want to delete?'
-        onCancel={cancel}
+        onCancel={back}
         onConfirm={confirmDelete}
       />}
 
