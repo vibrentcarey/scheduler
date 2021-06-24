@@ -27,7 +27,7 @@ const interviewers = [
 
 const Appointment = ({ id, time, interview, bookInterview }) => {
   //Destructure the properties from the function
-  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY)
+  const { mode, transition, back, edit, cancel } = useVisualMode(interview ? SHOW : EMPTY)
   const [selectedInterviewer, setSelectedInterviewer] = useState(null)
   const [newInterview, setNewInterview] = useState(null)
 
@@ -66,6 +66,12 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
     }, 1000)
   }
 
+  const resetForm = () => {
+    setNewInterview(null)
+    setSelectedInterviewer(null)
+    back()
+  }
+
   return (
     <article className="appointment">
       <Header time={time} />{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -73,7 +79,7 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
       {mode === DELETE && <Status message='Deleting' />}
       {mode === CONFIRM && <Confirm
         message='Are you sure you want to delete?'
-        onCancel={back}
+        onCancel={cancel}
         onConfirm={confirmDelete}
       />}
 
@@ -81,6 +87,7 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
         student={newInterview && newInterview.student}
         interviewer={newInterview && newInterview.interviewer}
         onDelete={deleteInterview}
+        onEdit={edit}
       />
       }
       {mode === CREATE && <Form
@@ -89,6 +96,8 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
         interviewers={interviewers}
         onCancel={back}
         selectedInterviewer={selectedInterviewer}
+        name={newInterview && newInterview.student}
+        resetForm={resetForm}
       />}
     </article>
   )
