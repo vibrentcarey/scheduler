@@ -4,12 +4,15 @@ import Empty from './Empty'
 import Header from './Header'
 import Show from './Show'
 import Form from './Form'
+import Status from './Status'
 import './styles.scss'
 
 
 const EMPTY = 'EMPTY'
 const SHOW = 'SHOW'
 const CREATE = 'CREATE'
+const SAVE = 'SAVE'
+const DELETE = 'DELETE'
 
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
@@ -25,44 +28,56 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
   const [selectedInterviewer, setSelectedInterviewer] = useState(null)
   const [newInterview, setNewInterview] = useState(null)
 
-  function save(name, interviewer) {
+  //Use the name an interviewer to book a new interview
+  const save = (name, interviewer) => {
     const newInterview = {
       student: name,
       interviewer
     };
 
     setNewInterview(newInterview)
-    transition(SHOW);
-
-    // bookInterview(id, newInterview)
-    // if (newInterview) {
-    //   transition(SHOW);
-    // }
+    transition(SAVE);
+    setTimeout(() => {
+      transition(SHOW);
+    }, 1000)
   }
 
+  //Set the interviewer using the id
   const setInterviewer = (id) => {
-    const chosenInterviewer = interviewers.filter( interviewer => {
+    const chosenInterviewer = interviewers.filter(interviewer => {
       return interviewer.id === id
     })[0].name
 
     setSelectedInterviewer(chosenInterviewer)
   }
+  //Delete an interview 
+  const deleteInterview = () => {
+    setNewInterview(null)
+    transition(DELETE)
+    setTimeout(() => {
+      transition(EMPTY);
+    }, 1000)
+  }
 
   return (
     <article className="appointment">
       <Header time={time} />{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === SAVE && <Status message='Saving' />}
+      {mode === DELETE && <Status message='Deleting' />}
+
       {mode === SHOW && <Show
         student={newInterview && newInterview.student}
         interviewer={newInterview && newInterview.interviewer}
+        onDelete={deleteInterview}
       />
       }
       {mode === CREATE && <Form
         onSave={save}
         setInterviewer={setInterviewer}
         interviewers={interviewers}
-        onCancel={back} 
+        onCancel={back}
         selectedInterviewer={selectedInterviewer}
-        />}
+      />}
     </article>
   )
 }
