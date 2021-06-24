@@ -5,6 +5,8 @@ import Header from './Header'
 import Show from './Show'
 import Form from './Form'
 import Status from './Status'
+import Confirm from './Confirm'
+
 import './styles.scss'
 
 
@@ -13,6 +15,7 @@ const SHOW = 'SHOW'
 const CREATE = 'CREATE'
 const SAVE = 'SAVE'
 const DELETE = 'DELETE'
+const CONFIRM = 'CONFIRM'
 
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
@@ -24,7 +27,7 @@ const interviewers = [
 
 const Appointment = ({ id, time, interview, bookInterview }) => {
   //Destructure the properties from the function
-  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY)
+  const { mode, transition, back, cancel } = useVisualMode(interview ? SHOW : EMPTY)
   const [selectedInterviewer, setSelectedInterviewer] = useState(null)
   const [newInterview, setNewInterview] = useState(null)
 
@@ -52,8 +55,12 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
   }
   //Delete an interview 
   const deleteInterview = () => {
+    transition(CONFIRM)
+  }
+
+  const confirmDelete = () => {
+    transition(DELETE);
     setNewInterview(null)
-    transition(DELETE)
     setTimeout(() => {
       transition(EMPTY);
     }, 1000)
@@ -64,6 +71,11 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
       <Header time={time} />{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SAVE && <Status message='Saving' />}
       {mode === DELETE && <Status message='Deleting' />}
+      {mode === CONFIRM && <Confirm
+        message='Are you sure you want to delete?'
+        onCancel={cancel}
+        onConfirm={confirmDelete}
+      />}
 
       {mode === SHOW && <Show
         student={newInterview && newInterview.student}

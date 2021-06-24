@@ -11,11 +11,14 @@ export const useVisualMode = (initial) => {
 
   const back = () => {
     if (history.length > 0) {
-      setHistory(prev => prev.filter((_,idx) => idx < prev.length - 1))
       setMode(history[0])
     } else {
       return
     }
   }
-  return { mode, transition, back }
+
+  const cancel = () => {
+   setMode(history[history.length - 2])
+  }
+  return { mode, transition, back, cancel }
 }
