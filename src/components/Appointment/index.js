@@ -33,6 +33,7 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
 
   //Use the name an interviewer to book a new interview
   const save = (name, interviewer) => {
+    if(name && interviewer){
     const newInterview = {
       student: name,
       interviewer
@@ -43,6 +44,9 @@ const Appointment = ({ id, time, interview, bookInterview }) => {
     setTimeout(() => {
       transition(SHOW);
     }, 1000)
+  } else {
+    alert('Please fill in your name and select an interviewer')
+  }
   }
 
   //Set the interviewer using the id
