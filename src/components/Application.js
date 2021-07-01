@@ -1,47 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import "components/Application.scss";
-import DayList from "./DayList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
 
-import { days, appointments } from "../data/data";
-import useVisualMode from "hooks/useVisualMode";
+import { appointments } from "../data/data";
 
 export default function Application() {
-  const [state, setState] = useState({
-    day: 'Monday',
-    days,
-    appointments: {}
-  })
-
-
-  const setDay = day => setState({ ...state, day })
-
-  useEffect(() => {
-    setState(prev => ({ ...prev, days }))
-  }, [state.days])
-
-  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const [localAppointments, setLocalAppointments] = useState(appointments)
 
   function bookInterview(id, interview) {
-    console.log(interview)
     //Create a new appointment with the id and interview
     const appointment = {
-      ...state.appointments[id],
+      ...localAppointments[id],
       interview: { ...interview }
     };
 
     //Edit the appointments with our new appointment
     const appointments = {
-      ...state.appointments,
+      ...localAppointments,
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    })
+    setLocalAppointments(appointments)
   }
 
 
@@ -56,6 +36,7 @@ export default function Application() {
       />
     )
   })
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -65,9 +46,6 @@ export default function Application() {
           alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered" />
-        <nav className="sidebar__menu">
-          <DayList days={state.days} day={state.day} setDay={setDay} />
-        </nav>
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"

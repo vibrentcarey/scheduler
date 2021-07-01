@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export const useVisualMode = (initial) => {
   const [mode, setMode] = useState(initial)
   const [history, setHistory] = useState([initial])
+
   //Transition to the new mode
-  const transition = (newMode, replace = false) => {
+  const transition = (newMode) => {
     setMode(newMode)
     setHistory(prev => [...prev, newMode])
   }
@@ -19,11 +20,9 @@ export const useVisualMode = (initial) => {
 
   const edit = () => {
     setMode(history[1])
-
   }
 
   const cancel = () => {
-    console.log(history)
     setMode(history[history.length - 2])
     setHistory(prev => prev.filter((_, idx) => idx < history.length - 1))
   }
